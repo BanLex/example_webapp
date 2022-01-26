@@ -1,0 +1,63 @@
+name: Delete infrastructure with Terraform
+on:
+  workflow_dispatch:
+env:
+      DAY_OF_WEEK: Mon
+      OAUTH: "${{ secrets.YC_OAUTH}}"
+      cloud: "${{ secrets.YC_CLOUD}}"
+      folder: "${{secrets.YC_FOLDER}}"
+      secrets: "${{secrets.YC_ACCESS_KEY}}"
+#defaults:
+#  run:
+#    working-directory: ../yandex-cloud-terraform
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        working-directory: ../yandex-cloud-terraform    
+    steps:
+    
+      - name: Install SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          install -m 600 -D /dev/null ~/.ssh/id_rsa.pub
+          echo "${{ secrets.SSH_PUBLUC_KEY }}" > ~/.ssh/id_rsa.pub
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v1
+      
+#      - name: ls
+#        run: ls -Al  
+        
+#      - name: go to terraform config directory
+#        run: cd yandex-cloud-terraform
+        
+#      - name: ls
+#        run: ls -Al  
+        
+      - name: create vars file
+        run: |
+          cd yandex-cloud-terraform
+          echo '  access_key = "${{ secrets.YC_ACCESS_KEY }}"'  >> backend.tfbackend 
+          echo '  secret_key = "${{ secrets.YC_SECRET_KEY }}"'  >> backend.tfbackend
+          echo "locals {" > locals.tf
+          echo '  oauth      = "${{ secrets.YC_OAUTH }}"'  >> locals.tf 
+          echo '  cloud = "${{ secrets.YC_CLOUD }}"'  >> locals.tf 
+          echo '  folder = "${{ secrets.YC_FOLDER }}"'  >> locals.tf 
+          echo '}'  >> locals.tf
+          cat locals.tf
+          
+      - name: init Terraform
+        run: |
+          cd yandex-cloud-terraform
+          terraform init -backend-config=backend.tfbackend
+          
+      - name: destroy Terraform
+        run: |
+          cd yandex-cloud-terraform
+          terraform destroy  --auto-approve
