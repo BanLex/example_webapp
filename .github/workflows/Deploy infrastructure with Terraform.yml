@@ -2,7 +2,8 @@ name: Deploy infrastructure with Terraform
 on:
   workflow_dispatch:
 env:
-      DAY_OF_WEEK: Mon
+      access_key: "${{secrets.YC_ACCESS_KEY}}"
+      secret_key: "${{secrets.YC_SECRET_KEY}}"
       OAUTH: "${{ secrets.YC_OAUTH}}"
       cloud: "${{ secrets.YC_CLOUD}}"
       folder: "${{secrets.YC_FOLDER}}"
@@ -31,11 +32,15 @@ jobs:
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v1
 
+      - name: insert baket keys
+        run: |
+          cd yandex-cloud-terraform
+          echo '  access_key = "${{ access_key }}"'  >> backend.tfbackend 
+          echo '  secret_key = "${{ secret_key }}"'  >> backend.tfbackend
+          
       - name: create vars file
         run: |
           cd yandex-cloud-terraform
-          echo '  access_key = "${{ secrets.YC_ACCESS_KEY }}"'  >> backend.tfbackend 
-          echo '  secret_key = "${{ secrets.YC_SECRET_KEY }}"'  >> backend.tfbackend
           echo "locals {" > locals.tf
           echo '  oauth      = "${{ secrets.YC_OAUTH }}"'  >> locals.tf 
           echo '  cloud = "${{ secrets.YC_CLOUD }}"'  >> locals.tf 
