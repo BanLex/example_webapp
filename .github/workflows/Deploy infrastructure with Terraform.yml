@@ -7,7 +7,7 @@ env:
       oauth: "${{secrets.YC_OAUTH}}"
       cloud: "${{secrets.YC_CLOUD}}"
       folder: "${{secrets.YC_FOLDER}}"
-      secrets: "${{secrets.YC_ACCESS_KEY}}"
+      
 #defaults:
 #  run:
 #    working-directory: ../yandex-cloud-terraform
@@ -41,7 +41,7 @@ jobs:
       - name: create locals file
         run: |
           cd yandex-cloud-terraform
-          echo "locals {" > locals.tf
+          echo 'locals {' > locals.tf
           echo '  oauth  = "${{ oauth }}"'  >> locals.tf 
           echo '  cloud  = "${{ cloud }}"'  >> locals.tf 
           echo '  folder = "${{ folder }}"'  >> locals.tf 
