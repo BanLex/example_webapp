@@ -39,6 +39,7 @@ jobs:
           cd yandex-cloud-terraform
           echo '  access_key = "$access_key"'  >> backend.tfbackend 
           echo '  secret_key = "$secret_key"'  >> backend.tfbackend
+          cat backend.tfbackend
           
       - name: create locals file
         run: |
