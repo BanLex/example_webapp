@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: banlex
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDco9QX8T6R1zx48Gmc+s7v1Jrv5v7C/eg5SP0Kz7eG5uAMsXYzi5SOQJZSEsyUvuqItjgeo8n/AFfzjQfMxvnmZn77PkTuKNJTSybpK3fuHdolf/mPMnwhUXjcaaoRVTlMYaGRH7Da1pv3ydi4pM+ZghmMlmHP25KGYQnx03u/ZltXu11LbI3MfVaZNGk/X8QFUSvALWh4Mi1RydHs3gnuALpWYiywLTIP304kQSd6I+A3b+h7Q7Am1HvmhMILFlBkWT6Ip8wmSXQz4V8wxpgpwFrFXeENULmmJHOonrre6UUGYiB5m5d3NOhqkbDQD0IOLjU9GP8x91EGrFF/XBPXsn0FU2aDBbSWLm74wkotzanny2uniJJ9R9/TOfMFeQ96b/jx4+hqVyQ/ZFqGWxfuGrXllinIOIYRLK5SXcXNEO+DqrYQieY/btwSjCLjymCzSMdS7zXTMRWabqVq3T1niXJNnf0A9Gj2xOOHw6fsaT6y38cgdz64ZscFj3KcoKs= ansible@VirtualBox48148df0
