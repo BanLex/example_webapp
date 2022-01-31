@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "nfs" {
   name = "nfs"
-  
+  hostname = "nfs"
   resources {
     cores  = 2
     memory = 2
