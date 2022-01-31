@@ -6,8 +6,7 @@ resource "yandex_compute_instance" "docker" {
   count = local.counts
   hostname = "docker-${count.index}"
   name = "docker-${count.index}"
-  fqdn = "docker-${count.index}"
-  id = "docker-${count.index}"
+  
   resources {
     cores  = 2
     memory = 2
