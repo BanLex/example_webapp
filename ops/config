@@ -1,0 +1,28 @@
+Host nfs
+  HostName nfs
+  User banlex
+  ProxyJump gw
+
+Host docker-0
+  HostName docker-0
+  User banlex
+  ProxyJump gw
+
+Host docker-1
+  HostName docker-1
+  User banlex
+  ProxyJump gw  
+
+Host docker-2
+  HostName docker-2
+  User banlex
+  ProxyJump gw  
+
+Host docker-3
+  HostName docker-3
+  User banlex
+  ProxyJump gw  
+
+Host gw
+  HostName 84.201.129.141
+  User banlex
