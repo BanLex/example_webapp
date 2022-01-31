@@ -24,9 +24,9 @@ jobs:
       - name: Install SSH key
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo "$ssh_private" > ~/.ssh/id_rsa
+          echo "${{env.ssh_private}}" > ~/.ssh/id_rsa
           install -m 600 -D /dev/null ~/.ssh/id_rsa.pub
-          echo "$ssh_public" > ~/.ssh/id_rsa.pub
+          echo "${{env.ssh_public}}" > ~/.ssh/id_rsa.pub
           
       - name: Checkout
         uses: actions/checkout@v2
@@ -37,17 +37,17 @@ jobs:
       - name: insert baket keys
         run: |
           cd yandex-cloud-terraform
-          echo '  access_key = "$access_key"'  >> backend.tfbackend 
-          echo '  secret_key = "$secret_key"'  >> backend.tfbackend
+          echo '  access_key = "${{env.access_key}}"'  >> backend.tfbackend 
+          echo '  secret_key = "${{env.secret_key}}"'  >> backend.tfbackend
           cat backend.tfbackend
           
       - name: create locals file
         run: |
           cd yandex-cloud-terraform
           echo 'locals {' > locals.tf
-          echo '  oauth  = "$oauth"'  >> locals.tf 
-          echo '  cloud  = "$cloud"'  >> locals.tf 
-          echo '  folder = "$folder"'  >> locals.tf 
+          echo '  oauth  = "${{env.oauth}}"'  >> locals.tf 
+          echo '  cloud  = "${{env.cloud}}"'  >> locals.tf 
+          echo '  folder = "${{env.folder}}"'  >> locals.tf 
           echo '}'  >> locals.tf
           cat locals.tf
           
