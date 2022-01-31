@@ -16,7 +16,6 @@ resource "yandex_compute_instance" "gw" {
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
     nat       = true
-    ip_address = "192.168.10.3"
     nat_ip_address = "84.201.129.141"
     dns_record {
       fqdn = "gw.ru-central1.internal."
