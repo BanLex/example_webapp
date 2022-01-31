@@ -3,6 +3,6 @@ resource "yandex_vpc_route_table" "net-rt-a" {
 
   static_route {
     destination_prefix = "0.0.0.0/0"
-    next_hop_address   = "gw.ru-central1.internal."
+    next_hop_address   = "gw.ru-central1.internal"
   }
 }
