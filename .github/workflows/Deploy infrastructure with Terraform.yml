@@ -7,6 +7,8 @@ env:
       oauth: "${{secrets.YC_OAUTH}}"
       cloud: "${{secrets.YC_CLOUD}}"
       folder: "${{secrets.YC_FOLDER}}"
+      ssh_private: "${{ secrets.SSH_PRIVATE_KEY }}"
+      ssh_public: "${{ secrets.SSH_PUBLUC_KEY }}"
       
 #defaults:
 #  run:
@@ -22,9 +24,9 @@ jobs:
       - name: Install SSH key
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ ssh_private }}" > ~/.ssh/id_rsa
           install -m 600 -D /dev/null ~/.ssh/id_rsa.pub
-          echo "${{ secrets.SSH_PUBLUC_KEY }}" > ~/.ssh/id_rsa.pub
+          echo "${{ ssh_public }}" > ~/.ssh/id_rsa.pub
           
       - name: Checkout
         uses: actions/checkout@v2
