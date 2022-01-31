@@ -24,6 +24,6 @@ resource "yandex_compute_instance" "nfs" {
     user-data = "${file("user")}"
   }
   
-  
+  depends_on = [yandex_compute_instance.gw]
   
 }
