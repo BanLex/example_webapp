@@ -28,5 +28,5 @@ resource "yandex_compute_instance" "docker" {
   metadata = {
     user-data = "${file("user")}"
   }
-  
+  depends_on = [yandex_compute_instance.gw]
 }
