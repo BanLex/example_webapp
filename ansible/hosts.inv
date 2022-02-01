@@ -11,7 +11,6 @@ docker-3
 nfs
 
 [nfs-clients]
-gw
 docker-0
 docker-1
 docker-2
