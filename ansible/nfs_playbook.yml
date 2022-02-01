@@ -1,0 +1,56 @@
+---
+- name: config nfs-server
+  hosts: nfs-server
+  become: yes
+  
+  tasks:
+    - name: install nfs server
+      apt:
+        name: nfs-kernel-server
+        state: latest
+
+    - name: Create a mountable directory if it does not exist
+      file:
+        path: /share/nfs_server
+        state: directory
+        owner: nobody
+        group: nogroup
+        mode: '0777'
+
+    - name: copy /etc/exports
+      template:
+        src: ../ops/exports
+        dest: /etc/exports
+        owner: root
+        group: root
+        mode: 0644
+
+    - service:
+        name: nfs-kernel-server
+        state: restarted
+
+
+- name: config nfs-clients
+  hosts: nfs-clients
+  become: yes
+  
+  tasks:
+    - name: install nfs server
+      apt:
+        name: nfs-common
+        
+        
+    - name: Create mountable dir
+      file:
+        path: /nfs
+        state: directory
+        mode: 777
+        owner: root
+        group: root
+
+    - name: set mountpoints
+      mount:
+        path: /nfs
+        src: nfs:/share/nfs_server
+        state: mounted
+        fstype: nfs
